@@ -1,0 +1,401 @@
+package main
+
+import "encoding/json"
+
+var projects_json = `[{
+	"project_id": 156,
+	"project_name": "prod-merchant-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 155,
+	"project_name": "pre-merchant-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 154,
+	"project_name": "test-merchant-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 149,
+	"project_name": "dev-cactus-merchant",
+	"space_id": 1,
+	"space_name": "后台开发环境"
+}, {
+	"project_id": 148,
+	"project_name": "pre-datahub-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 147,
+	"project_name": "pre-cron-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 146,
+	"project_name": "pre-point-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 145,
+	"project_name": "prod-delivery-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 144,
+	"project_name": "test-delivery-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 142,
+	"project_name": "prod-datahub-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 141,
+	"project_name": "test-datahub-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 132,
+	"project_name": "pre-admin-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 131,
+	"project_name": "pre-api-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 130,
+	"project_name": "pre-blackboard-base",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 129,
+	"project_name": "pre-blackboard-business",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 128,
+	"project_name": "pre-base-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 127,
+	"project_name": "pre-class-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 126,
+	"project_name": "pre-homework-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 125,
+	"project_name": "pre-product-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 124,
+	"project_name": "pre-middle-phoenix",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 123,
+	"project_name": "pre-phoenix-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 122,
+	"project_name": "pre-middle-mall",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 121,
+	"project_name": "pre-mall-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 120,
+	"project_name": "pre-pay-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 105,
+	"project_name": "pre-operations",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 104,
+	"project_name": "pre-middle-operations",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 103,
+	"project_name": "pre-subject-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 100,
+	"project_name": "dev-cactus-search",
+	"space_id": 1,
+	"space_name": "后台开发环境"
+}, {
+	"project_id": 97,
+	"project_name": "prod-point-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 95,
+	"project_name": "prod-blackboard-websocket",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 94,
+	"project_name": "pre-interaction-server",
+	"space_id": 19,
+	"space_name": "后台预发布(pre)环境"
+}, {
+	"project_id": 87,
+	"project_name": "prod-operations-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 86,
+	"project_name": "prod-homework-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 79,
+	"project_name": "prod-blackboard-business",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 78,
+	"project_name": "prod-blackboard-base",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 76,
+	"project_name": "test-homework-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 66,
+	"project_name": "prod-maintainer",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 65,
+	"project_name": "maintainer",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 64,
+	"project_name": "prod-product-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 60,
+	"project_name": "test-blackboard-base",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 59,
+	"project_name": "test-blackboard-business",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 57,
+	"project_name": "prod-middle-operations",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 56,
+	"project_name": "prod-subject-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 53,
+	"project_name": "prod-pay-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 52,
+	"project_name": "prod-mall-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 51,
+	"project_name": "prod-mall-middle-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 50,
+	"project_name": "prod-phoenix-middle-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 49,
+	"project_name": "prod-phoenix-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 48,
+	"project_name": "prod-base-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 47,
+	"project_name": "prod-class-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 46,
+	"project_name": "prod-admin-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 45,
+	"project_name": "prod-api-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 44,
+	"project_name": "test-subject-link",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 43,
+	"project_name": "test-class-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 42,
+	"project_name": "prod-cron-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 41,
+	"project_name": "test-product-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 40,
+	"project_name": "prod-interaction-server",
+	"space_id": 10,
+	"space_name": "后台线上环境"
+}, {
+	"project_id": 39,
+	"project_name": "test-cron-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 38,
+	"project_name": "test-operations-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 37,
+	"project_name": "test-base-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 36,
+	"project_name": "test-middle-operations",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 35,
+	"project_name": "test-subject-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 34,
+	"project_name": "test-pay-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 33,
+	"project_name": "test-interaction-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 30,
+	"project_name": "test-middle-phoenix",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 29,
+	"project_name": "test-admin-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 28,
+	"project_name": "test-api-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 27,
+	"project_name": "test-phoenix-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 25,
+	"project_name": "test-middle-mall",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 22,
+	"project_name": "test-mall-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 6,
+	"project_name": "dev-interaction-server",
+	"space_id": 1,
+	"space_name": "后台开发环境"
+}, {
+	"project_id": 5,
+	"project_name": "test-point-server",
+	"space_id": 8,
+	"space_name": "后台测试环境"
+}, {
+	"project_id": 1,
+	"project_name": "dev-point-server",
+	"space_id": 1,
+	"space_name": "后台开发环境"
+}]`
+
+type ProjectInfo struct {
+	ProjectId   int    `json:"project_id"`
+	ProjectName string `json:"project_name"`
+	SpaceId     int    `json:"space_id"`
+	SpaceName   string `json:"space_name"`
+}
+
+type Projects struct {
+	data []ProjectInfo
+}
+
+func NewProjects() Projects {
+	projects := Projects{}
+	err := json.Unmarshal([]byte(projects_json), &projects.data)
+	if err != nil {
+		panic(err)
+	}
+
+	return projects
+}
+
+func (p *Projects) GetProject(name string) *ProjectInfo {
+	for _, v := range p.data {
+		if v.ProjectName == name {
+			return &v
+		}
+	}
+
+	return nil
+}
