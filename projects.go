@@ -380,13 +380,12 @@ type Projects struct {
 	data []ProjectInfo
 }
 
-func NewProjects() Projects {
-	projects := Projects{}
-	err := json.Unmarshal([]byte(projects_json), &projects.data)
+func NewProjects(data string) *Projects {
+	projects := &Projects{}
+	err := json.Unmarshal([]byte(data), &projects.data)
 	if err != nil {
-		panic(err)
+		panic("project data error")
 	}
-
 	return projects
 }
 
@@ -396,6 +395,5 @@ func (p *Projects) GetProject(name string) *ProjectInfo {
 			return &v
 		}
 	}
-
 	return nil
 }

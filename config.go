@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/astaxie/beego/config"
+	z "github.com/nutzam/zgo"
 )
 
 const (
@@ -9,7 +10,7 @@ const (
 )
 
 type AccessConfig struct {
-	Schema     string
+	Schema   string
 	Host     string
 	Username string
 	Password string
@@ -24,9 +25,11 @@ type SyncdConfig struct {
 
 var syncdCfg SyncdConfig
 
-func InitConfig() {
+func InitConfig() AccessConfig {
 	logger.Println("init config")
 	syncdCfg.Load()
+
+	return syncdCfg.access
 	//token, err := GetToken()
 	//if err != nil {
 	//	logger.Println("token is empty")
@@ -48,10 +51,13 @@ func (c *SyncdConfig) Load() {
 
 	syncdCfg.cfg = cfg
 
-	syncdCfg.access.Schema = cfg.String("schema")
-	syncdCfg.access.Host = cfg.String("host")
-	syncdCfg.access.Username = cfg.String("username")
-	syncdCfg.access.Password = cfg.String("password")
+	syncdCfg.access.Schema = z.Trim(cfg.String("schema"))
+	syncdCfg.access.Host = z.Trim(cfg.String("host"))
+	syncdCfg.access.Username = z.Trim(cfg.String("username"))
+	syncdCfg.access.Password = z.Trim(cfg.String("password"))
+	if z.IsBlank(syncdCfg.access.Username)||z.IsBlank(syncdCfg.access.Host)||z.IsBlank(syncdCfg.access.Username)||z.IsBlank(syncdCfg.access.Password){
+		panic("请先设置配置文件 cfg.ini 的参数")
+	}
 }
 
 func (c *SyncdConfig) Save() {
