@@ -30,17 +30,6 @@ func InitConfig() AccessConfig {
 	syncdCfg.Load()
 
 	return syncdCfg.access
-	//token, err := GetToken()
-	//if err != nil {
-	//	logger.Println("token is empty")
-	//	request := NewRequest(syncdCfg.access)
-	//	request.Login()
-	//
-	//}else{
-	//	logger.Println("token exists:", token)
-	//	//check valid
-	//}
-
 }
 
 func (c *SyncdConfig) Load() {

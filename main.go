@@ -10,10 +10,21 @@ import (
 )
 
 func help() {
-	fmt.Print(`usage:
-	syncd-console submit test-admin-server -m ''
-	syncd-console projects
-	syncd-console tasks`)
+	fmt.Print(`使用说明:
+  显示当前帮助
+  ./syncd-console help
+
+  登录
+  ./syncd-console login
+
+  一键部署
+  ./syncd-console submit -p test-admin-server -m "some description"
+  
+  查看项目列表
+  ./syncd-console projects
+  
+  查看部署任务列表
+  ./syncd-console tasks`)
 }
 
 func Recover() {
@@ -45,7 +56,7 @@ app tasks
 */
 func main() {
 	defer Recover()
-	InitConfig()
+	accessCfg:=InitConfig()
 
 	flag.Parse()
 	//fmt.Printf("%v",flag.Args())
@@ -57,9 +68,10 @@ func main() {
 	} else {
 		cmd = flag.Arg(0)
 	}
+
 	switch cmd {
 	case "login":
-		request := NewRequest(syncdCfg.access)
+		request := NewRequest(accessCfg)
 		request.Login()
 		fmt.Println("登录成功")
 	case "submit":
@@ -75,7 +87,7 @@ func main() {
 		}
 
 		//fmt.Printf("%v", params)
-		request := NewRequest(syncdCfg.access)
+		request := NewRequest(accessCfg)
 		err = request.Submit(params["-p"], params["-m"], params["-m"])
 		if err != nil {
 			panic("任务提交失败")
@@ -94,7 +106,7 @@ func main() {
 			id := int(v.(map[string]interface{})["id"].(float64)) //任务id
 			status := int(v.(map[string]interface{})["status"].(float64))
 
-			if username == syncdCfg.access.Username && projectname == params["-p"] && status == TASK_STATUS_WAIT {
+			if username == accessCfg.Username && projectname == params["-p"] && status == TASK_STATUS_WAIT {
 				taskId = id
 				break;
 			}
@@ -174,7 +186,7 @@ func main() {
 		println("部署成功！")
 
 	case "projects":
-		request := NewRequest(syncdCfg.access)
+		request := NewRequest(accessCfg)
 		projectJson := request.Projects()
 		projects := NewProjects(projectJson)
 		fmt.Printf("%s - %s\n", z.AlignLeft("项目名称", 40, ' '), "空间名称")
@@ -182,7 +194,7 @@ func main() {
 			fmt.Printf("%s - %s\n", z.AlignLeft(v.ProjectName, 40, ' '), v.SpaceName)
 		}
 	case "tasks":
-		request := NewRequest(syncdCfg.access)
+		request := NewRequest(accessCfg)
 		respData := request.ApplyList()
 		list := respData["list"]
 		fmt.Println(z.AlignLeft("任务id", 10, ' '), z.AlignLeft("项目名称", 40, ' '), z.AlignLeft("用户", 30, ' '), "状态")
@@ -195,10 +207,9 @@ func main() {
 			fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 40, ' '), z.AlignLeft(username, 30, ' '), GetTaskStatusText(status))
 		}
 	case "test":
-		request := NewRequest(syncdCfg.access)
+		request := NewRequest(accessCfg)
 		println(request.BuildStatus(10887))
 	case "help":
-	default:
 		help()
 	}
 }
