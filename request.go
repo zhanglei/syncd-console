@@ -263,10 +263,10 @@ func (req *Request) Submit(projectName string, name string, description string) 
 /*
 发布单列表 http://deploy.tech.mofaxiao.com/api/deploy/apply/list?keyword=&offset=0&limit=7&_t=1569820088091
 */
-func (req *Request) ApplyList() RespData {
+func (req *Request) ApplyList(offset int, limit int) RespData {
 	params := *cmap.NewCMap()
-	_ = params.Set("offset", "0")
-	_ = params.Set("limit", "5")
+	_ = params.Set("offset", strconv.Itoa(offset))
+	_ = params.Set("limit", strconv.Itoa(limit))
 
 	url := req.getUrl("api/deploy/apply/list", params)
 	logger.Println(url)

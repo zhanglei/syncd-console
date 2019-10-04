@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	configFileName = "cfg.ini"
+	configFileName = "syncd-console.ini"
 )
 
 type AccessConfig struct {
@@ -26,7 +26,7 @@ type SyncdConfig struct {
 var syncdCfg SyncdConfig
 
 func InitConfig() AccessConfig {
-	logger.Println("init config")
+	logger.Println("loading config")
 	syncdCfg.Load()
 
 	return syncdCfg.access
@@ -45,7 +45,7 @@ func (c *SyncdConfig) Load() {
 	syncdCfg.access.Username = z.Trim(cfg.String("username"))
 	syncdCfg.access.Password = z.Trim(cfg.String("password"))
 	if z.IsBlank(syncdCfg.access.Username)||z.IsBlank(syncdCfg.access.Host)||z.IsBlank(syncdCfg.access.Username)||z.IsBlank(syncdCfg.access.Password){
-		panic("请先设置配置文件 cfg.ini 的参数")
+		panic("请先设置配置文件 syncd-console.ini 的参数")
 	}
 }
 

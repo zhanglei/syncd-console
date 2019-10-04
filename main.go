@@ -56,7 +56,7 @@ app tasks
 */
 func main() {
 	defer Recover()
-	accessCfg:=InitConfig()
+	accessCfg := InitConfig()
 
 	flag.Parse()
 	//fmt.Printf("%v",flag.Args())
@@ -96,7 +96,7 @@ func main() {
 		time.Sleep(time.Second * 1)
 
 		//读取任务列表，找到任务id
-		respData := request.ApplyList()
+		respData := request.ApplyList(0, 5)
 		list := respData["list"]
 		var taskId int
 		for _, v := range list.([]interface{}) {
@@ -128,7 +128,7 @@ func main() {
 
 		//build
 		go func(taskId int) {
-			fmt.Println("开始构建")
+			logger.Println("\n开始构建")
 			err := request.BuildStart(taskId)
 			if err != nil {
 				panic("构建启动失败:" + err.Error())
@@ -146,7 +146,7 @@ func main() {
 					case BUILD_STATUS_DONE:
 						build <- 1
 					case BUILD_STATUS_RUNNING:
-						fmt.Print('.')
+						fmt.Print(".")
 					}
 
 					time.Sleep(time.Second * 2)
@@ -157,7 +157,7 @@ func main() {
 		//构建结束，开始部署
 
 		go func(taskId int) {
-			fmt.Println("开始部署")
+			logger.Println("\n开始部署")
 			err := request.DeployStart(taskId)
 			if err != nil {
 				panic("部署启动失败")
@@ -175,7 +175,7 @@ func main() {
 					case DEPLOY_STATUS_FAIL:
 						panic("部署失败")
 					case DEPLOY_STATUS_RUNNING:
-						fmt.Print('.')
+						fmt.Print(".")
 					}
 
 					time.Sleep(time.Second * 2)
@@ -183,7 +183,7 @@ func main() {
 			}
 		}(taskId)
 		<-deploy
-		println("部署成功！")
+		logger.Println("部署成功！")
 
 	case "projects":
 		request := NewRequest(accessCfg)
@@ -195,7 +195,7 @@ func main() {
 		}
 	case "tasks":
 		request := NewRequest(accessCfg)
-		respData := request.ApplyList()
+		respData := request.ApplyList(0, 10)
 		list := respData["list"]
 		fmt.Println(z.AlignLeft("任务id", 10, ' '), z.AlignLeft("项目名称", 40, ' '), z.AlignLeft("用户", 30, ' '), "状态")
 		for _, v := range list.([]interface{}) {
@@ -206,9 +206,6 @@ func main() {
 
 			fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 40, ' '), z.AlignLeft(username, 30, ' '), GetTaskStatusText(status))
 		}
-	case "test":
-		request := NewRequest(accessCfg)
-		println(request.BuildStatus(10887))
 	case "help":
 		help()
 	}
