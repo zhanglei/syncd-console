@@ -28,4 +28,4 @@ password = <<password>>
 ./syncd-console submit -p <<project-name>> -m "<<description-title>>"
 ```
 
-Author: 7853151@qq.com
+Author: qinming@100tal.com
