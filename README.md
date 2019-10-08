@@ -8,12 +8,12 @@ host = <<your syncd host>>
 username = <<username>>
 password = <<password>>
 ```
-2.登录服务
+2.登录Syncd
 ```
 ./syncd-console login
 ```
 
-3.查看可发布任务列表
+3.查看可发布任务列表(用于部署中的project-name)
 ```
 ./syncd-console projects
 ```
@@ -25,10 +25,7 @@ password = <<password>>
 
 5.一键部署
 ```
-./syncd-console submit -p <<project-name>> -m <<description-title>>
+./syncd-console submit -p <<project-name>> -m "<<description-title>>"
 ```
 
-###author
-```
-7853151@qq.com
-```
+Author: 7853151@qq.com
