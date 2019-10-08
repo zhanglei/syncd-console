@@ -25,7 +25,7 @@ password = <<password>>
 
 5.一键部署
 ```
-./syncd-console submit -p <<project-name>> -m "<<description-title>>"
+./syncd-console submit -p <<project-name>> -m "描述" -t "tag（可选）"
 ```
 
 Author: qinming@100tal.com
