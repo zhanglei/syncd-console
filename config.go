@@ -26,9 +26,8 @@ type SyncdConfig struct {
 var syncdCfg SyncdConfig
 
 func InitConfig() AccessConfig {
-	logger.Println("loading config")
+	//println("loading config")
 	syncdCfg.Load()
-
 	return syncdCfg.access
 }
 

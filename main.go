@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	z "github.com/nutzam/zgo"
-	"runtime/debug"
 	"strconv"
 	"time"
 )
@@ -29,8 +28,9 @@ func help() {
 
 func Recover() {
 	if r := recover(); r != nil {
-		fmt.Println("执行错误：", r)
-		fmt.Println(string(debug.Stack()))
+		println("执行错误,原因:")
+		fmt.Printf("%s", r)
+		//fmt.Println(string(debug.Stack()))
 	}
 }
 
@@ -73,7 +73,7 @@ func main() {
 	case "login":
 		request := NewRequest(accessCfg)
 		request.Login()
-		fmt.Println("登录成功")
+		println("登录成功")
 	case "submit":
 		//检查参数 -p -m
 		//fmt.Printf("%v", flag.Args()[1:])
@@ -128,7 +128,7 @@ func main() {
 
 		//build
 		go func(taskId int) {
-			logger.Println("\n开始构建")
+			println("\n开始构建")
 			err := request.BuildStart(taskId)
 			if err != nil {
 				panic("构建启动失败:" + err.Error())
@@ -157,7 +157,7 @@ func main() {
 		//构建结束，开始部署
 
 		go func(taskId int) {
-			logger.Println("\n开始部署")
+			println("\n开始部署")
 			err := request.DeployStart(taskId)
 			if err != nil {
 				panic("部署启动失败")
@@ -175,7 +175,7 @@ func main() {
 					case DEPLOY_STATUS_FAIL:
 						panic("部署失败")
 					case DEPLOY_STATUS_RUNNING:
-						fmt.Print(".")
+						print(".")
 					}
 
 					time.Sleep(time.Second * 2)
@@ -183,7 +183,7 @@ func main() {
 			}
 		}(taskId)
 		<-deploy
-		logger.Println("部署成功！")
+		println("\n部署成功！")
 
 	case "projects":
 		request := NewRequest(accessCfg)

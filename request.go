@@ -269,7 +269,7 @@ func (req *Request) ApplyList(offset int, limit int) RespData {
 	_ = params.Set("limit", strconv.Itoa(limit))
 
 	url := req.getUrl("api/deploy/apply/list", params)
-	logger.Println(url)
+	//logger.Println(url)
 	_, body, errs := gorequest.New().
 		Get(url).
 		AppendHeader("Accept", "application/json").
