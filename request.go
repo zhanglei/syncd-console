@@ -215,7 +215,7 @@ func (req *Request) Projects() (projectsJson string) {
 /*
 
  */
-func (req *Request) Submit(projectName string, name string, description string) error {
+func (req *Request) Submit(projectName string, name string, description string, branchName string) error {
 	if name == "" {
 		panic("name 不能都为空")
 	}
@@ -232,6 +232,9 @@ func (req *Request) Submit(projectName string, name string, description string) 
 	_ = params.Set("space_id", strconv.Itoa(project.SpaceId))
 	_ = params.Set("name", name)
 	_ = params.Set("description", description)
+	if branchName != "" {
+		_ = params.Set("branch_name", branchName)
+	}
 
 	//fmt.Printf("%v", params)
 	url := req.getUrl("api/deploy/apply/submit", params)

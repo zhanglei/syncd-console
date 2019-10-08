@@ -35,10 +35,10 @@ func Recover() {
 	}
 }
 
-func ParseFlag(flags []string) (map[string]string, error) {
+func ParseSubmitFlag(flags []string) (map[string]string, error) {
 	ret := make(map[string]string)
 	var k string
-	flagArr := []string{"-p", "-m"}
+	flagArr := []string{"-p", "-m", "-t"}
 	for _, f := range flags {
 		if z.IndexOfStrings(flagArr, f) != -1 {
 			k = f
@@ -78,7 +78,7 @@ func main() {
 	case "submit":
 		//检查参数 -p -m
 		//fmt.Printf("%v", flag.Args()[1:])
-		params, err := ParseFlag(flag.Args()[1:])
+		params, err := ParseSubmitFlag(flag.Args()[1:])
 		if err != nil {
 			panic(err)
 		}
@@ -87,9 +87,13 @@ func main() {
 			panic("参数错误,请输入 -p project_name -m description")
 		}
 
-		//fmt.Printf("%v", params)
+		var branchName = ""
+		if params["-t"] != "" {
+			branchName = params["-t"]
+		}
+
 		request := NewRequest(accessCfg)
-		err = request.Submit(params["-p"], params["-m"], params["-m"])
+		err = request.Submit(params["-p"], params["-m"], params["-m"], branchName)
 		if err != nil {
 			panic("任务提交失败")
 		}

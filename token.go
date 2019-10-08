@@ -24,7 +24,7 @@ func RemoveToken() {
 }
 
 func SetToken(token string) {
-	logger.Println("set token:", token)
+	//logger.Println("set token:", token)
 	err := ioutil.WriteFile(tokenFile, []byte(token), 0644)
 	if err != nil {
 		panic(err)
