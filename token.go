@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	tokenFile = ".token"
+	tokenFile = ".syncd-token"
 )
 
 var _token string

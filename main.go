@@ -28,8 +28,9 @@ func help() {
 
 func Recover() {
 	if r := recover(); r != nil {
-		println("执行错误,原因:")
-		fmt.Printf("%s", r)
+		println("\n------------------------\n执行错误,原因:")
+		fmt.Printf("%s\n", r)
+		println("------------------------")
 		//fmt.Println(string(debug.Stack()))
 	}
 }
@@ -128,7 +129,7 @@ func main() {
 
 		//build
 		go func(taskId int) {
-			println("\n开始构建")
+			print("开始构建")
 			err := request.BuildStart(taskId)
 			if err != nil {
 				panic("构建启动失败:" + err.Error())
@@ -154,10 +155,11 @@ func main() {
 			}
 		}(taskId)
 		<-build
+		println("构建成功！")
 		//构建结束，开始部署
 
 		go func(taskId int) {
-			println("\n开始部署")
+			print("开始部署")
 			err := request.DeployStart(taskId)
 			if err != nil {
 				panic("部署启动失败")
