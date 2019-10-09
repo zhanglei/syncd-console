@@ -189,7 +189,7 @@ func main() {
 			}
 		}(taskId)
 		<-deploy
-		println("\n部署成功！")
+		println("部署成功！")
 
 	case "projects":
 		request := NewRequest(accessCfg)
