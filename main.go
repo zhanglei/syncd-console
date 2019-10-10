@@ -105,7 +105,6 @@ func main() {
 		list := respData["list"]
 		var taskId int
 		for _, v := range list.([]interface{}) {
-			//fmt.Printf("%v", v)
 			username := v.(map[string]interface{})["username"].(string)
 			projectname := v.(map[string]interface{})["project_name"].(string)
 			id := int(v.(map[string]interface{})["id"].(float64)) //任务id
@@ -115,7 +114,6 @@ func main() {
 				taskId = id
 				break;
 			}
-			//fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 80, ' '), z.AlignLeft(username, 80, ' '), status)
 		}
 
 		if taskId == 0 {
@@ -195,7 +193,7 @@ func main() {
 		request := NewRequest(accessCfg)
 		projectJson := request.Projects()
 		projects := NewProjects(projectJson)
-		fmt.Printf("%s - %s\n", z.AlignLeft("项目名称", 40, ' '), "空间名称")
+		fmt.Printf("%s - %s\n", z.AlignLeft("Project Name", 40, ' '), "Space Name")
 		for _, v := range projects.data {
 			fmt.Printf("%s - %s\n", z.AlignLeft(v.ProjectName, 40, ' '), v.SpaceName)
 		}
@@ -203,14 +201,17 @@ func main() {
 		request := NewRequest(accessCfg)
 		respData := request.ApplyList(0, 10)
 		list := respData["list"]
-		fmt.Println(z.AlignLeft("任务id", 10, ' '), z.AlignLeft("项目名称", 40, ' '), z.AlignLeft("用户", 30, ' '), "状态")
+		fmt.Println(z.AlignLeft("ID", 10, ' '), z.AlignLeft("Project Name", 40, ' '), z.AlignLeft("User", 30, ' '), z.AlignLeft("Submit Time", 30, ' '), "Status")
 		for _, v := range list.([]interface{}) {
 			username := v.(map[string]interface{})["username"].(string)
 			projectname := v.(map[string]interface{})["project_name"].(string)
 			id := int(v.(map[string]interface{})["id"].(float64))
 			status := int(v.(map[string]interface{})["status"].(float64))
+			ctime := int64(v.(map[string]interface{})["ctime"].(float64))
+			t := time.Unix(ctime, 0)
+			createtime := t.Format("2006-01-02 15:04:05")
 
-			fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 40, ' '), z.AlignLeft(username, 30, ' '), GetTaskStatusText(status))
+			fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 40, ' '), z.AlignLeft(username, 30, ' '), z.AlignLeft(createtime, 30, ' '), GetTaskStatusText(status))
 		}
 	case "help":
 		help()
