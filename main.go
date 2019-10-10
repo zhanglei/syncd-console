@@ -9,7 +9,7 @@ import (
 )
 
 func help() {
-	fmt.Print(`使用说明:
+	fmt.Print(`********----------syncd外挂使用说明----------*********
   显示当前帮助
   ./syncd-console help
 
@@ -18,6 +18,9 @@ func help() {
 
   一键部署
   ./syncd-console submit -p test-admin-server -m "some description"
+
+  一键部署（带标签）
+  ./syncd-console submit -p prod-admin-server -m "some description" -t v2019100101
   
   查看项目列表
   ./syncd-console projects
@@ -214,6 +217,10 @@ func main() {
 			fmt.Println(z.AlignLeft(strconv.Itoa(id), 10, ' '), z.AlignLeft(projectname, 40, ' '), z.AlignLeft(username, 30, ' '), z.AlignLeft(createtime, 30, ' '), GetTaskStatusText(status))
 		}
 	case "help":
+		help()
+	case "version":
+		println("syncd-console 1.0.0")
+	default:
 		help()
 	}
 }
