@@ -1,7 +1,7 @@
 ##Syncd-console（syncd命令行插件）
 使用步骤:
 
-1.可执行程序当前目录配置 syncd-console.ini (可不配置，第一次运行程序按向导提示完成)
+1.可执行程序当前目录配置 syncd-console.ini (可不配置，第一次运行程序按向导提示自动完成)
 ```
 schema = http
 host = <<your syncd host>>
@@ -25,7 +25,8 @@ password = <<password>>
 
 5.一键部署
 ```
-./syncd-console submit -p <<project-name>> -m "描述" -t "tag（可选）"
+./syncd-console submit -p <<project-name>> -m "描述"
+./syncd-console submit -p <<project-name>> -m "描述" -t "tag"
 ```
 
 Author: qinming@100tal.com
