@@ -1,7 +1,8 @@
 ##Syncd-console（syncd命令行插件）
 使用步骤:
 
-1.可执行程序当前目录配置 syncd-console.ini (可不配置，第一次运行程序按向导提示自动完成)
+1.可执行程序当前目录配置 syncd-console.ini 
+(可不配置，第一次运行程序按向导提示将自动完成)
 ```
 schema = http
 host = <<your syncd host>>

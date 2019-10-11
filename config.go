@@ -9,7 +9,7 @@ import (
 
 const (
 	configFileName = "syncd-console.ini"
-	defaultUrl     = "http://deploy.tech.mofaxiao.com"
+	defaultUrl     = ""
 )
 
 type AccessConfig struct {

@@ -8,8 +8,13 @@ import (
 	"time"
 )
 
+const version = "1.0.0"
+
 func help() {
-	fmt.Print(`********----------syncd外挂使用说明----------*********
+	fmt.Printf(`********----------syncd外挂使用说明----------*********
+
+  当前版本 %s
+
   显示当前帮助
   ./syncd-console help
 
@@ -26,7 +31,7 @@ func help() {
   ./syncd-console projects
   
   查看部署任务列表
-  ./syncd-console tasks`)
+  ./syncd-console tasks`, version)
 }
 
 func Recover() {
@@ -63,8 +68,6 @@ func main() {
 	accessCfg := InitConfig()
 
 	flag.Parse()
-	//fmt.Printf("%v",flag.Args())
-	//println(flag.NArg(),flag.Arg(0))
 
 	var cmd string
 	if flag.NArg() == 0 {
@@ -79,8 +82,7 @@ func main() {
 		request.Login()
 		println("登录成功")
 	case "submit":
-		//检查参数 -p -m
-		//fmt.Printf("%v", flag.Args()[1:])
+		//检查参数 -p -m -t
 		params, err := ParseSubmitFlag(flag.Args()[1:])
 		if err != nil {
 			panic(err)
@@ -218,8 +220,6 @@ func main() {
 		}
 	case "help":
 		help()
-	case "version":
-		println("syncd-console 1.0.0")
 	default:
 		help()
 	}
